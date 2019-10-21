@@ -1,0 +1,17 @@
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+package(default_visibility = ["//visibility:public"])
+
+pkg_tar(
+    name = "release",
+    srcs = [
+        "BUILD.bazel",
+        "LICENSE",
+        "defs.bzl",
+        "//internal:BUILD.bazel",
+        "//internal:openapi_generator.bzl",
+    ],
+    extension = "tar.gz",
+    strip_prefix = "./openapi_tools_generator_bazel",
+    tags = ["manual"],
+)
