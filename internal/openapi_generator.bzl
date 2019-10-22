@@ -91,6 +91,7 @@ def _impl(ctx):
         declared_dir,
     ]))
 
+# taken from rules_scala
 def _collect_jars(targets):
     """Compute the runtime and compile-time dependencies from the given targets"""  # noqa
     compile_jars = depset()
@@ -104,11 +105,17 @@ def _collect_jars(targets):
             runtime_jars = depset(transitive = [runtime_jars, target.scala.transitive_runtime_deps])
             runtime_jars = depset(transitive = [runtime_jars, target.scala.transitive_runtime_exports])
             found = True
-        if hasattr(target, "java"):
-            compile_jars = depset(transitive = [compile_jars, target.java.transitive_deps])
-            runtime_jars = depset(transitive = [runtime_jars, target.java.transitive_runtime_deps])
+        if hasattr(target, "JavaInfo"):
+            # see JavaSkylarkApiProvider.java,
+            # this is just the compile-time deps
+            # this should be improved in bazel 0.1.5 to get outputs.ijar
+            # compile_jars = depset(transitive = [compile_jars, [target.java.outputs.ijar]])
+            compile_jars = depset(transitive = [compile_jars, target[JavaInfo].transitive_deps])
+            runtime_jars = depset(transitive = [runtime_jars, target[JavaInfo].transitive_runtime_deps])
             found = True
         if not found:
+            # support http_file pointed at a jar. http_jar uses ijar,
+            # which breaks scala macros
             runtime_jars = depset(transitive = [runtime_jars, target.files])
             compile_jars = depset(transitive = [compile_jars, target.files])
 
