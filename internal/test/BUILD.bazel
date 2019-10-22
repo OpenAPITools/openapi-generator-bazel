@@ -1,3 +1,5 @@
+# Copyright 2019 OpenAPI-Generator-Bazel Contributors
+
 load("@openapi_tools_generator_bazel//:defs.bzl", "openapi_generator")
 
 openapi_generator(
