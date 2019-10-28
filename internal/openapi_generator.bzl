@@ -20,10 +20,16 @@ def _new_generator_command(ctx, declared_dir, rjars):
     java_path = ctx.attr._jdk[java_common.JavaRuntimeInfo].java_executable_exec_path
     gen_cmd = str(java_path)
 
-    gen_cmd += " -cp {cli_jar}:{jars} org.openapitools.codegen.OpenAPIGenerator generate -i {spec} -g {generator} -o {output}".format(
+    jar_delimiter = ":"
+    if ctx.attr.is_windows:
+        jar_delimiter = ";"
+
+    jars = [ctx.file.openapi_generator_cli] + rjars.to_list()
+
+
+    gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -i {spec} -g {generator} -o {output}".format(
         java = java_path,
-        cli_jar = ctx.file.openapi_generator_cli.path,
-        jars = ":".join([j.path for j in rjars.to_list()]),
+        jars = jar_delimiter.join([j.path for j in jars]),
         spec = ctx.file.spec.path,
         generator = ctx.attr.generator,
         output = declared_dir.path,
@@ -80,9 +86,10 @@ def _impl(ctx):
     # TODO: Convert to run
     ctx.actions.run_shell(
         inputs = inputs,
-        command = "mkdir -p {gen_dir}".format(
+        command = "mkdir -p {gen_dir} && {generator_command}".format(
             gen_dir = declared_dir.path,
-        ) + " && " + _new_generator_command(ctx, declared_dir, rjars),
+            generator_command = _new_generator_command(ctx, declared_dir, rjars)
+        ),
         outputs = [declared_dir],
         tools = ctx.files._jdk,
     )
@@ -123,7 +130,7 @@ def _collect_jars(targets):
 
     return struct(compiletime = compile_jars, runtime = runtime_jars)
 
-openapi_generator = rule(
+_openapi_generator = rule(
     attrs = {
         # downstream dependencies
         "deps": attr.label_list(),
@@ -142,6 +149,7 @@ openapi_generator = rule(
         "additional_properties": attr.string_dict(),
         "system_properties": attr.string_dict(),
         "type_mappings": attr.string_dict(),
+        "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
             default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
             providers = [java_common.JavaRuntimeInfo],
@@ -154,3 +162,13 @@ openapi_generator = rule(
     },
     implementation = _impl,
 )
+
+def openapi_generator(name, **kwargs):
+    _openapi_generator(
+        name = name,
+        is_windows = select({
+            "@bazel_tools//src/conditions:windows": True,
+            "//conditions:default": False,
+        }),
+        **kwargs
+    )
