@@ -1,8 +1,9 @@
 # Copyright 2019 OpenAPI-Generator-Bazel Contributors
 
-def openapi_tools_generator_bazel_repositories(openapi_generator_cli_version = "4.1.0", prefix = "openapi_tools_generator_bazel"):
+def openapi_tools_generator_bazel_repositories(openapi_generator_cli_version = "4.1.3", sha256="234cbbc5ec9b56e4b585199ec387b5ad3aefb3eda9424c30d35c849dd5950d2f", prefix = "openapi_tools_generator_bazel"):
     native.maven_jar(
-        name = prefix + "_cli",
+        name = "openapi_tools_generator_bazel_cli",
+        sha256 = sha256,
         artifact = "org.openapitools:openapi-generator-cli:" + openapi_generator_cli_version,
     )
     native.bind(
