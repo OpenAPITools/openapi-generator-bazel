@@ -1,6 +1,6 @@
 # Copyright 2019 OpenAPI-Generator-Bazel Contributors
 
-def openapi_tools_generator_bazel_repositories(openapi_generator_cli_version = "4.1.3", sha256="234cbbc5ec9b56e4b585199ec387b5ad3aefb3eda9424c30d35c849dd5950d2f", prefix = "openapi_tools_generator_bazel"):
+def openapi_tools_generator_bazel_repositories(openapi_generator_cli_version = "4.1.3", sha256 = "234cbbc5ec9b56e4b585199ec387b5ad3aefb3eda9424c30d35c849dd5950d2f", prefix = "openapi_tools_generator_bazel"):
     native.maven_jar(
         name = "openapi_tools_generator_bazel_cli",
         sha256 = sha256,
@@ -26,7 +26,6 @@ def _new_generator_command(ctx, declared_dir, rjars):
         jar_delimiter = ";"
 
     jars = [ctx.file.openapi_generator_cli] + rjars.to_list()
-
 
     gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -i {spec} -g {generator} -o {output}".format(
         java = java_path,
@@ -67,6 +66,10 @@ def _new_generator_command(ctx, declared_dir, rjars):
         gen_cmd += " --model-package {package}".format(
             package = ctx.attr.model_package,
         )
+    if ctx.attr.engine:
+        gen_cmd += " --engine {package}".format(
+            package = ctx.attr.engine,
+        )
 
     # fixme: by default, openapi-generator is rather verbose. this helps with that but can also mask useful error messages
     # when it fails. look into log configuration options. it's a java app so perhaps just a log4j.properties or something
@@ -89,7 +92,7 @@ def _impl(ctx):
         inputs = inputs,
         command = "mkdir -p {gen_dir} && {generator_command}".format(
             gen_dir = declared_dir.path,
-            generator_command = _new_generator_command(ctx, declared_dir, rjars)
+            generator_command = _new_generator_command(ctx, declared_dir, rjars),
         ),
         outputs = [declared_dir],
         tools = ctx.files._jdk,
@@ -149,6 +152,7 @@ _openapi_generator = rule(
         "model_package": attr.string(),
         "additional_properties": attr.string_dict(),
         "system_properties": attr.string_dict(),
+        "engine": attr.string(),
         "type_mappings": attr.string_dict(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
