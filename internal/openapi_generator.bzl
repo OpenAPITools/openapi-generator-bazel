@@ -1,10 +1,16 @@
 # Copyright 2019 OpenAPI-Generator-Bazel Contributors
 
+load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
+
 def openapi_tools_generator_bazel_repositories(openapi_generator_cli_version = "4.1.3", sha256 = "234cbbc5ec9b56e4b585199ec387b5ad3aefb3eda9424c30d35c849dd5950d2f", prefix = "openapi_tools_generator_bazel"):
-    native.maven_jar(
+    jvm_maven_import_external(
         name = "openapi_tools_generator_bazel_cli",
-        sha256 = sha256,
+        artifact_sha256 = sha256,
         artifact = "org.openapitools:openapi-generator-cli:" + openapi_generator_cli_version,
+        server_urls = [
+            "https://jcenter.bintray.com/",
+            "https://repo1.maven.org/maven2",
+        ],
     )
     native.bind(
         name = prefix + "/dependency/openapi-generator-cli",
