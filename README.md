@@ -22,7 +22,7 @@ you must do the following steps:
 
    # You can provide any version of the CLI that has been uploaded to Maven
    openapi_tools_generator_bazel_repositories(
-       openapi_generator_cli_version = "4.1.0",
+       openapi_generator_cli_version = "5.0.1",
    )
    ```
 
