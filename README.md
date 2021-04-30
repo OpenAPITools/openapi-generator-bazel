@@ -14,7 +14,7 @@ you must do the following steps:
 
    http_archive(
        name = "openapi_tools_generator_bazel",
-       sha256 = "bdec4feb06144a1dc0a6f9955de9f0079a98b7442275bc84a4fd00452437c945",
+       sha256 = "c6e4c253f1ae0fbe4d4ded8a719f6647273141d0dc3c0cd8bb074aa7fc3c8d1c",
        urls = ["https://github.com/OpenAPITools/openapi-generator-bazel/releases/download/0.1.5/openapi-tools-generator-bazel-0.1.5.tar.gz"],
    )
 
@@ -22,7 +22,7 @@ you must do the following steps:
 
    # You can provide any version of the CLI that has been uploaded to Maven
    openapi_tools_generator_bazel_repositories(
-       openapi_generator_cli_version = "5.0.1",
+       openapi_generator_cli_version = "5.1.0",
    )
    ```
 
