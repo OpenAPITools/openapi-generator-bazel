@@ -61,7 +61,7 @@ def _new_generator_command(ctx, declared_dir, rjars):
     )
     
     gen_cmd += ' --reserved-words-mappings "{reserved_words_mappings}"'.format(
-        reserved_words_mappings = _comma_separated_pairs(ctx.attr.reserved_words_mappings),
+        reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
 
     if ctx.attr.api_package:
