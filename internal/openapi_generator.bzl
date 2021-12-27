@@ -164,7 +164,7 @@ _openapi_generator = rule(
         "system_properties": attr.string_dict(),
         "engine": attr.string(),
         "type_mappings": attr.string_dict(),
-        "reserved_words_mappings": attr.string_dict(),
+        "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
             default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
