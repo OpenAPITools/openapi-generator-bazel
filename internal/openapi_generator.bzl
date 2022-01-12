@@ -150,6 +150,7 @@ _openapi_generator = rule(
             allow_single_file = [
                 ".json",
                 ".yaml",
+                ".yml",
             ],
         ),
         "generator": attr.string(mandatory = True),
