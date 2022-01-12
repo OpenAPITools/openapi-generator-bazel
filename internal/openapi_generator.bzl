@@ -143,7 +143,7 @@ def _collect_jars(targets):
 _openapi_generator = rule(
     attrs = {
         # downstream dependencies
-        "deps": attr.label_list(),
+        "deps": attr.label_list(allow_files = True),
         # openapi spec file
         "spec": attr.label(
             mandatory = True,
