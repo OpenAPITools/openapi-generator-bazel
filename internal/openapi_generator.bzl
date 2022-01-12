@@ -59,6 +59,10 @@ def _new_generator_command(ctx, declared_dir, rjars):
     gen_cmd += ' --type-mappings "{mappings}"'.format(
         mappings = _comma_separated_pairs(ctx.attr.type_mappings),
     )
+    
+    gen_cmd += ' --reserved-words-mappings "{reserved_words_mappings}"'.format(
+        reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
+    )
 
     if ctx.attr.api_package:
         gen_cmd += " --api-package {package}".format(
@@ -161,6 +165,7 @@ _openapi_generator = rule(
         "system_properties": attr.string_dict(),
         "engine": attr.string(),
         "type_mappings": attr.string_dict(),
+        "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
             default = Label("@bazel_tools//tools/jdk:current_java_runtime"),

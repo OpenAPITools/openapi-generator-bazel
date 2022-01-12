@@ -41,3 +41,13 @@ openapi_generator(
         "Integer": "java.math.BigDecimal",
     },
 )
+
+openapi_generator(
+    name = "petstore_java_reserved_words",
+    generator = "java",
+    spec = "petstore.yaml",
+    reserved_words_mappings = [
+        "interface=interface",
+    ],
+)
+
