@@ -33,10 +33,11 @@ def _new_generator_command(ctx, declared_dir, rjars):
 
     jars = [ctx.file.openapi_generator_cli] + rjars.to_list()
 
-    gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -i {spec} -g {generator} -o {output}".format(
+    gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -t {template_dir} -i {spec} -g {generator} -o {output}".format(
         java = java_path,
         jars = jar_delimiter.join([j.path for j in jars]),
         spec = ctx.file.spec.path,
+        template_dir = ctx.file.template_dir.path,
         generator = ctx.attr.generator,
         output = declared_dir.path,
     )
