@@ -64,6 +64,11 @@ def _new_generator_command(ctx, declared_dir, rjars):
         reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
 
+    if ctx.attr.package_name:
+        gen_cmd += " --package-name {package}".format(
+            package = ctx.attr.package_name,
+        )
+
     if ctx.attr.api_package:
         gen_cmd += " --api-package {package}".format(
             package = ctx.attr.api_package,
@@ -158,6 +163,7 @@ _openapi_generator = rule(
             ],
         ),
         "generator": attr.string(mandatory = True),
+        "package_name": attr.string(),
         "api_package": attr.string(),
         "invoker_package": attr.string(),
         "model_package": attr.string(),
