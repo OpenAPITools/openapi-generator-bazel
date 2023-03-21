@@ -64,6 +64,11 @@ def _new_generator_command(ctx, declared_dir, rjars):
         reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
 
+    if ctx.attr.package_name:
+        gen_cmd += " --package-name {package}".format(
+            package = ctx.attr.package_name,
+        )
+
     if ctx.attr.api_package:
         gen_cmd += " --api-package {package}".format(
             package = ctx.attr.api_package,
@@ -158,6 +163,7 @@ _openapi_generator = rule(
             ],
         ),
         "generator": attr.string(mandatory = True),
+        "package_name": attr.string(),
         "api_package": attr.string(),
         "invoker_package": attr.string(),
         "model_package": attr.string(),
@@ -168,7 +174,7 @@ _openapi_generator = rule(
         "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
-            default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
+            default = Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
             providers = [java_common.JavaRuntimeInfo],
         ),
         "openapi_generator_cli": attr.label(
