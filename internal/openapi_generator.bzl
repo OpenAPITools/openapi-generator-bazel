@@ -174,7 +174,7 @@ _openapi_generator = rule(
         "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
-            default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
+            default = Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
             providers = [java_common.JavaRuntimeInfo],
         ),
         "openapi_generator_cli": attr.label(
