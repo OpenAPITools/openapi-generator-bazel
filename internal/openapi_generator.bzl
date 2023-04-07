@@ -68,6 +68,10 @@ def _new_generator_command(ctx, declared_dir, rjars):
         gen_cmd += " --api-package {package}".format(
             package = ctx.attr.api_package,
         )
+    if ctx.attr.template_dir:
+        gen_cmd += " --template-dir $PWD/{template}".format(
+            template = ctx.files.template_dir[0].path,
+        )
     if ctx.attr.invoker_package:
         gen_cmd += " --invoker-package {package}".format(
             package = ctx.attr.invoker_package,
@@ -95,7 +99,7 @@ def _impl(ctx):
     inputs = [
         ctx.file.openapi_generator_cli,
         ctx.file.spec,
-    ] + cjars.to_list() + rjars.to_list()
+    ] + cjars.to_list() + rjars.to_list() + ctx.files.template_dir
 
     # TODO: Convert to run
     ctx.actions.run_shell(
@@ -164,6 +168,7 @@ _openapi_generator = rule(
         "additional_properties": attr.string_dict(),
         "system_properties": attr.string_dict(),
         "engine": attr.string(),
+        "template_dir": attr.label(allow_files = True),
         "type_mappings": attr.string_dict(),
         "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
