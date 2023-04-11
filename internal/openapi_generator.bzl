@@ -72,7 +72,6 @@ def _new_generator_command(ctx, declared_dir, rjars):
         gen_cmd += " --template-dir {template_dir}".format(
             template_dir = ctx.attr.template_dir.files.to_list()[0].path,
         )
-        print(ctx.attr.template_dir.files.to_list()[0].path)
 
     if ctx.attr.api_package:
         gen_cmd += " --api-package {package}".format(
