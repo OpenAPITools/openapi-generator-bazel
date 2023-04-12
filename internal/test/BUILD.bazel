@@ -51,3 +51,16 @@ openapi_generator(
     ],
 )
 
+openapi_generator(
+    name = "petstore_python_flask_with_config_tag",
+    generator = "python-flask",
+    spec = "petstore.yaml",
+    config = "config.yaml"
+)
+
+openapi_generator(
+    name = "petstore_python_flask_with_template_dir",
+    generator = "python-flask",
+    spec = "petstore.yaml",
+    template_dir = "python-templates"
+)
