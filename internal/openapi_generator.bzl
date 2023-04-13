@@ -59,10 +59,19 @@ def _new_generator_command(ctx, declared_dir, rjars):
     gen_cmd += ' --type-mappings "{mappings}"'.format(
         mappings = _comma_separated_pairs(ctx.attr.type_mappings),
     )
-    
+
     gen_cmd += ' --reserved-words-mappings "{reserved_words_mappings}"'.format(
         reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
+
+    if ctx.attr.config:
+        gen_cmd += " --config {config}".format(
+            config = ctx.attr.config.files.to_list()[0].path,
+        )
+    if ctx.attr.template_dir:
+        gen_cmd += " --template-dir {template_dir}".format(
+            template_dir = ctx.attr.template_dir.files.to_list()[0].path,
+        )
 
     if ctx.attr.api_package:
         gen_cmd += " --api-package {package}".format(
@@ -96,6 +105,12 @@ def _impl(ctx):
         ctx.file.openapi_generator_cli,
         ctx.file.spec,
     ] + cjars.to_list() + rjars.to_list()
+
+    if ctx.attr.config:
+        inputs += ctx.attr.config.files.to_list()
+
+    if ctx.attr.template_dir:
+        inputs += ctx.attr.template_dir.files.to_list()
 
     # TODO: Convert to run
     ctx.actions.run_shell(
@@ -157,6 +172,8 @@ _openapi_generator = rule(
                 ".yml",
             ],
         ),
+        "template_dir": attr.label(allow_single_file = True),
+        "config": attr.label(allow_single_file = True),
         "generator": attr.string(mandatory = True),
         "api_package": attr.string(),
         "invoker_package": attr.string(),
