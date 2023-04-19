@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
 
 def openapi_tools_generator_bazel_repositories(
         openapi_generator_cli_version = "6.5.0",
-        sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721"
+        sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721",
         prefix = "openapi_tools_generator_bazel",
         server_urls = [
             "https://repo1.maven.org/maven2"
