@@ -3,12 +3,11 @@
 load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
 
 def openapi_tools_generator_bazel_repositories(
-        openapi_generator_cli_version = "5.0.1",
-        sha256 = "e4e45d5441283b2f0f4bf988d02186b85425e7b708b4be0b06e3bfd7c7aa52c7",
+        openapi_generator_cli_version = "6.5.0",
+        sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721",
         prefix = "openapi_tools_generator_bazel",
         server_urls = [
-            "https://jcenter.bintray.com/",
-            "https://repo1.maven.org/maven2",
+            "https://repo1.maven.org/maven2"
         ]):
     jvm_maven_import_external(
         name = "openapi_tools_generator_bazel_cli",
