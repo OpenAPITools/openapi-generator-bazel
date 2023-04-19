@@ -2,6 +2,8 @@
 
 This repo was created to integrate the OpenAPI code generation CLI with Bazel.
 
+If you find this project useful, please kindly consider supporting this project financially via https://opencollective.com/openapi_generator :pray:
+
 ## Quickstart
 
 To use the Bazel bindings provided by this repo within a Bazel workspace,
