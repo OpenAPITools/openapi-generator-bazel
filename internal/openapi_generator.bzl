@@ -1,23 +1,16 @@
 # Copyright 2019 OpenAPI-Generator-Bazel Contributors
 
-load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
+load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 def openapi_tools_generator_bazel_repositories(
-        openapi_generator_cli_version = "6.5.0",
-        sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721",
-        prefix = "openapi_tools_generator_bazel",
-        server_urls = [
-            "https://repo1.maven.org/maven2"
-        ]):
-    jvm_maven_import_external(
-        name = "openapi_tools_generator_bazel_cli",
-        artifact_sha256 = sha256,
-        artifact = "org.openapitools:openapi-generator-cli:" + openapi_generator_cli_version,
-        server_urls = server_urls,
-    )
-    native.bind(
-        name = prefix + "/dependency/openapi-generator-cli",
-        actual = "@" + prefix + "_cli//jar",
+        cli_version = "6.5.0",
+        server_urls = ["https://repo1.maven.org/maven2"],
+        maven_install_json = None):
+    
+    maven_install(
+        artifacts = ["org.openapitools:openapi-generator-cli:" + cli_version],
+        repositories = server_urls,
+        maven_install_json = maven_install_json,
     )
 
 def _comma_separated_pairs(pairs):
@@ -193,7 +186,7 @@ _openapi_generator = rule(
         ),
         "openapi_generator_cli": attr.label(
             cfg = "host",
-            default = Label("//external:openapi_tools_generator_bazel/dependency/openapi-generator-cli"),
+            default = Label("@maven//:org_openapitools_openapi_generator_cli"),
             allow_single_file = True,
         ),
     },
