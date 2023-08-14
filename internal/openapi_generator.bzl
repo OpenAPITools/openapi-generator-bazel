@@ -36,13 +36,16 @@ def _new_generator_command(ctx, declared_dir, rjars):
 
     jars = [ctx.file.openapi_generator_cli] + rjars.to_list()
 
-    gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -i {spec} -g {generator} -o {output}".format(
+    gen_cmd += " -cp \"{jars}\" org.openapitools.codegen.OpenAPIGenerator generate -g {generator} -o {output}".format(
         java = java_path,
         jars = jar_delimiter.join([j.path for j in jars]),
-        spec = ctx.file.spec.path,
         generator = ctx.attr.generator,
         output = declared_dir.path,
     )
+
+    for s in ctx.attr.specs:
+        for specfile in s.files.to_list():
+            gen_cmd += " -i {spec}".format(spec = specfile.path)
 
     gen_cmd += ' -p "{properties}"'.format(
         properties = _comma_separated_pairs(ctx.attr.system_properties),
@@ -106,8 +109,10 @@ def _impl(ctx):
 
     inputs = [
         ctx.file.openapi_generator_cli,
-        ctx.file.spec,
     ] + cjars.to_list() + rjars.to_list()
+
+    for spec in ctx.attr.specs:
+        inputs += spec.files.to_list()
 
     if ctx.attr.config:
         inputs += ctx.attr.config.files.to_list()
@@ -166,10 +171,10 @@ _openapi_generator = rule(
     attrs = {
         # downstream dependencies
         "deps": attr.label_list(allow_files = True),
-        # openapi spec file
-        "spec": attr.label(
+        # openapi spec files
+        "specs": attr.label_list(
             mandatory = True,
-            allow_single_file = [
+            allow_files = [
                 ".json",
                 ".yaml",
                 ".yml",
