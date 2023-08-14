@@ -1,0 +1,20 @@
+package {{package}};
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+import {{invokerPackage}}.ApiResponse;
+
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.core.json.JsonObject;
+
+import java.util.List;
+import java.util.Map;
+
+public interface {{classname}}  {
+{{#operations}}
+  {{#operation}}
+    Single<{{{returnType}}}> {{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}});
+  {{/operation}}
+{{/operations}}
+}
