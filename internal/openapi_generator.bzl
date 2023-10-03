@@ -192,7 +192,7 @@ _openapi_generator = rule(
             providers = [java_common.JavaRuntimeInfo],
         ),
         "openapi_generator_cli": attr.label(
-            cfg = "host",
+            cfg = "exec",
             default = Label("//external:openapi_tools_generator_bazel/dependency/openapi-generator-cli"),
             allow_single_file = True,
         ),
