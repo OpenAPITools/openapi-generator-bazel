@@ -43,6 +43,21 @@ openapi_generator(
 )
 
 openapi_generator(
+    name = "petstore_java_vertx",
+    generator = "java-vertx-web",
+    spec = "petstore.yaml",
+    template_dir = "templates",
+    additional_properties = {
+        "apiPackage"           : "com.foo.generated.api",
+        "modelPackage"         : "com.foo.generated.model",
+        "dateLibrary"          : "java8",
+        "useBeanValidation"    : "true",
+        "performBeanValidation": "true",
+        "snapshotVersion"      : "true"
+    },
+)
+
+openapi_generator(
     name = "petstore_java_reserved_words",
     generator = "java",
     spec = "petstore.yaml",
