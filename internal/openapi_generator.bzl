@@ -124,6 +124,7 @@ def _impl(ctx):
         ),
         outputs = [declared_dir],
         tools = ctx.files._jdk,
+        toolchain = ctx.attr._jdk.label,
     )
 
     srcs = declared_dir.path
