@@ -5,13 +5,13 @@ load("@openapi_tools_generator_bazel//:defs.bzl", "openapi_generator")
 openapi_generator(
     name = "petstore",
     generator = "go",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
 )
 
 openapi_generator(
     name = "petstore_java",
     generator = "java",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
 )
 
 openapi_generator(
@@ -20,13 +20,13 @@ openapi_generator(
         "library": "feign",
     },
     generator = "java",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
 )
 
 openapi_generator(
     name = "petstore_java_no_tests",
     generator = "java",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
     system_properties = {
         "apiTests": "false",
         "modelTests": "false",
@@ -36,7 +36,7 @@ openapi_generator(
 openapi_generator(
     name = "petstore_java_bigdecimal",
     generator = "java",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
     type_mappings = {
         "Integer": "java.math.BigDecimal",
     },
@@ -45,22 +45,28 @@ openapi_generator(
 openapi_generator(
     name = "petstore_java_reserved_words",
     generator = "java",
-    spec = "petstore.yaml",
     reserved_words_mappings = [
         "interface=interface",
     ],
+    specs = ["petstore.yaml"],
 )
 
 openapi_generator(
     name = "petstore_python_flask_with_config_tag",
+    config = "config.yaml",
     generator = "python-flask",
-    spec = "petstore.yaml",
-    config = "config.yaml"
+    specs = ["petstore.yaml"],
 )
 
 openapi_generator(
     name = "petstore_python_flask_with_template_dir",
     generator = "python-flask",
-    spec = "petstore.yaml",
-    template_dir = "python-templates"
+    specs = ["petstore.yaml"],
+    template_dir = "python-templates",
+)
+
+openapi_generator(
+    name = "petstore_python_nextgen_with_multiple_specs",
+    generator = "python-nextgen",
+    specs = glob(["petstore-separate/**/*.yaml"]),
 )

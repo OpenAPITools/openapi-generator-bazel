@@ -24,7 +24,7 @@ you must do the following steps:
 
    load("@openapi_tools_generator_bazel//:defs.bzl", "openapi_tools_generator_bazel_repositories")
 
-   # You can provide any version of the CLI that has been uploaded to Maven
+   # If necessary, you can provide an older or newer version of the CLI if it has been uploaded to Maven
    openapi_tools_generator_bazel_repositories(
        openapi_generator_cli_version = "5.1.0",
        sha256 = "62f9842f0fcd91e4afeafc33f19a7af41f2927c7472c601310cedfc72ff1bb19"
@@ -40,6 +40,6 @@ load("@openapi_tools_generator_bazel//:defs.bzl", "openapi_generator")
 openapi_generator(
     name = "petstore_go",
     generator = "go",
-    spec = "petstore.yaml",
+    specs = ["petstore.yaml"],
 )
 ```
