@@ -1,3 +1,5 @@
+## This project is looking for maintainers. Please refer to the [announcement](https://github.com/OpenAPITools/openapi-generator-bazel/issues/60) for more information.
+
 # OpenAPI Generator Bazel
 
 This repo was created to integrate the OpenAPI code generation CLI with Bazel.
