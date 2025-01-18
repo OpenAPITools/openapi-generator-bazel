@@ -134,10 +134,10 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//:extension.bzl%openapi_gen": {
+    "@@openapi_tools_generator_bazel+//:extension.bzl%openapi_gen": {
       "general": {
         "bzlTransitiveDigest": "zNi7CxdRyVmEwfOKfB1l9Nt4NwLhGmGTV6M0gFCTfCE=",
-        "usagesDigest": "IiFFOn7KUIQAnPoHi+pUjCjnAu38EfYZSfnkwHznoLI=",
+        "usagesDigest": "4cztgV/JJRhkn1/qDGlgDedZmHiI0j1w2ObmyNX9Lu8=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -147,21 +147,21 @@
             "attributes": {
               "generated_rule_name": "openapi_tools_generator_bazel_cli",
               "artifact_urls": [
-                "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.2.0/openapi-generator-cli-7.2.0.jar"
+                "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.5.0/openapi-generator-cli-6.5.0.jar"
               ],
               "srcjar_urls": [],
-              "canonical_id": "org.openapitools:openapi-generator-cli:7.2.0",
+              "canonical_id": "org.openapitools:openapi-generator-cli:6.5.0",
               "rule_name": "java_import",
               "tags": [
-                "maven_coordinates=org.openapitools:openapi-generator-cli:7.2.0"
+                "maven_coordinates=org.openapitools:openapi-generator-cli:6.5.0"
               ],
-              "artifact_sha256": "1cf0c80de12c0fdc8594289c19e414b402108ef10b8dd0bfda1953151341ab5d"
+              "artifact_sha256": "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721"
             }
           }
         },
         "recordedRepoMappingEntries": [
           [
-            "",
+            "openapi_tools_generator_bazel+",
             "bazel_tools",
             "bazel_tools"
           ]

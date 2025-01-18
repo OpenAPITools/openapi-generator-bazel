@@ -1,15 +1,26 @@
 "modules extension to use with openapi-generator-bazel"
+
 load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
 
-def _openapi_generator_impl(module_ctx):
+def get_wanted_module(module_ctx):
+    wanted_module = None
     for mod in module_ctx.modules:
-        for install in mod.tags.client:
-            jvm_maven_import_external(
-                name = "openapi_tools_generator_bazel_cli",
-                artifact_sha256 = install.sha256,
-                artifact = "org.openapitools:openapi-generator-cli:" + install.version,
-                server_urls = install.server_urls,
-            )
+        if mod.is_root and mod.tags.client:
+            return mod
+        if wanted_module == None and mod.tags.client:
+            wanted_module = mod
+    return wanted_module
+
+def _openapi_generator_impl(module_ctx):
+    wanted_module = get_wanted_module(module_ctx)
+
+    for install in wanted_module.tags.client:
+        jvm_maven_import_external(
+            name = "openapi_tools_generator_bazel_cli",
+            artifact_sha256 = install.sha256,
+            artifact = "org.openapitools:openapi-generator-cli:" + install.version,
+            server_urls = install.server_urls,
+        )
 
 _cli = tag_class(attrs = {
     "version": attr.string(
@@ -26,4 +37,3 @@ openapi_gen = module_extension(
     implementation = _openapi_generator_impl,
     tag_classes = {"client": _cli},
 )
-
