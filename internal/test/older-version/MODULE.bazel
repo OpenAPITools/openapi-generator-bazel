@@ -1,0 +1,17 @@
+module(
+    name = "openapi_tools_generator_bazel_bcr_tests",
+    version = "1.2.3",
+)
+
+bazel_dep(name = "openapi_tools_generator_bazel", version = "")
+local_path_override(
+    module_name = "openapi_tools_generator_bazel",
+    path = "../../..",
+)
+
+openapi_gen = use_extension("@openapi_tools_generator_bazel//:extension.bzl", "openapi_gen")
+openapi_gen.client(
+    sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721",
+    version = "6.5.0",
+)
+use_repo(openapi_gen, "openapi_tools_generator_bazel_cli")
