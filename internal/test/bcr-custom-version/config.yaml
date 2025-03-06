@@ -1,0 +1,10 @@
+# openapi-generator configuration
+---
+generatorName: python-flask
+packageName: openapi.bazel.test
+enablePostProcessFile: false
+globalProperties:
+  skipFormModel: false
+additionalProperties:
+  generated: generated
+  packageRoot: openapi.bazel

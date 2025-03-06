@@ -34,3 +34,8 @@ jobs:
           cd internal/test/bcr
           bazel mod path
           bazel build //...
+
+      - name: Integration BCR with older version
+        run: |
+          cd internal/test/bcr-custom-version
+          bazel build //...
