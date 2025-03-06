@@ -19,7 +19,7 @@ you must do the following steps:
    http_archive(
        name = "openapi_tools_generator_bazel",
        sha256 = "ada94694b10f2503c52a48427bd8589323bff5910bd1a7e5212ce34702d0af65",
-       urls = ["https://github.com/OpenAPITools/openapi-generator-bazel/releases/download/v0.1.6/openapi-tools-generator-bazel-0.1.6.tar.gz"],
+       urls = ["https://github.com/OpenAPITools/openapi-generator-bazel/releases/download/v0.1.7/openapi-tools-generator-bazel-0.1.7.tar.gz"],
    )
 
    load("@openapi_tools_generator_bazel//:defs.bzl", "openapi_tools_generator_bazel_repositories")
