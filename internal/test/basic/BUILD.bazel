@@ -64,3 +64,13 @@ openapi_generator(
     spec = "petstore.yaml",
     template_dir = "python-templates"
 )
+
+openapi_generator(
+    name = "petstore_java_import_mappings",
+    generator = "java",
+    spec = "petstore.yaml",
+    import_mappings = {
+        "Date": "java.time.LocalDate",
+        "DateTime": "java.time.OffsetDateTime",
+    },
+)
