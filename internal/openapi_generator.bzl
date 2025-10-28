@@ -43,6 +43,10 @@ def _new_generator_command(ctx, declared_dir, rjars):
         mappings = _comma_separated_pairs(ctx.attr.type_mappings),
     )
 
+    gen_cmd += ' --import-mappings "{mappings}"'.format(
+        mappings = _comma_separated_pairs(ctx.attr.import_mappings),
+    )
+
     gen_cmd += ' --reserved-words-mappings "{reserved_words_mappings}"'.format(
         reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
@@ -166,6 +170,7 @@ _openapi_generator = rule(
         "system_properties": attr.string_dict(),
         "engine": attr.string(),
         "type_mappings": attr.string_dict(),
+        "import_mappings": attr.string_dict(),
         "reserved_words_mappings": attr.string_list(),
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
