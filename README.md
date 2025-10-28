@@ -37,3 +37,5 @@ openapi_generator(
     spec = "petstore.yaml",
 )
 ```
+
+
