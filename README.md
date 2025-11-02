@@ -13,7 +13,7 @@ As of v0.1.8, this only supports [Bazel Modules](https://bazel.build/external/mo
 1. Add the following code to your  `MODULE.bazel` file at the root of your repository
 
 ```
-bazel_dep(name = "openapi_tools_generator_bazel", version = "0.1.8")
+bazel_dep(name = "openapi_tools_generator_bazel", version = "0.2.1")
 openapi_gen = use_extension("@openapi_tools_generator_bazel//:extension.bzl", "openapi_gen")
 openapi_gen.client(
     sha256 = "f18d771e98f2c5bb169d1d1961de4f94866d2901abc1e16177dd7e9299834721",
