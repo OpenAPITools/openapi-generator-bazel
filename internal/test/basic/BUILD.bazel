@@ -45,32 +45,42 @@ openapi_generator(
 openapi_generator(
     name = "petstore_java_reserved_words",
     generator = "java",
-    spec = "petstore.yaml",
     reserved_words_mappings = [
         "interface=interface",
     ],
+    spec = "petstore.yaml",
 )
 
 openapi_generator(
     name = "petstore_python_flask_with_config_tag",
+    config = "config.yaml",
     generator = "python-flask",
     spec = "petstore.yaml",
-    config = "config.yaml"
 )
 
 openapi_generator(
     name = "petstore_python_flask_with_template_dir",
     generator = "python-flask",
     spec = "petstore.yaml",
-    template_dir = "python-templates"
+    template_dir = "python-templates",
 )
 
 openapi_generator(
     name = "petstore_java_import_mappings",
     generator = "java",
-    spec = "petstore.yaml",
     import_mappings = {
         "Date": "java.time.LocalDate",
         "DateTime": "java.time.OffsetDateTime",
     },
+    spec = "petstore.yaml",
+)
+
+openapi_generator(
+    name = "petstore_java_name_mappings",
+    generator = "java",
+    name_mappings = {
+        "code": "statusCode",
+        "message": "statusMessage",
+    },
+    spec = "petstore.yaml",
 )
