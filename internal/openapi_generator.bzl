@@ -51,9 +51,10 @@ def _new_generator_command(ctx, declared_dir, rjars):
         reserved_words_mappings = ",".join(ctx.attr.reserved_words_mappings),
     )
 
-    gen_cmd += ' --name-mappings "{mappings}"'.format(
-        mappings = _comma_separated_pairs(ctx.attr.name_mappings),
-    )
+    if ctx.attr.name_mappings:
+        gen_cmd += ' --name-mappings "{mappings}"'.format(
+            mappings = _comma_separated_pairs(ctx.attr.name_mappings),
+        )
 
     if ctx.attr.config:
         gen_cmd += " --config {config}".format(
