@@ -37,3 +37,19 @@ openapi_generator(
     spec = "petstore.yaml",
 )
 ```
+3. [Optional] If you want to depend on a specific output file you can declare dedicated targets
+   for each file.
+
+```
+openapi_generator(
+    name = "petstore_pg",
+    generator = "postgresql-schema",
+    spec = "petstore.yaml",
+)
+genrule(
+    name = "sql",
+    srcs = [":petstore_pg"],
+    outs = ["mysql.sql"],
+    cmd = "cp $(SRCS)/postgresql_schema.sql $@",
+)
+```
