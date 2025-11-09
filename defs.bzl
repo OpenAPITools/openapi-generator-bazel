@@ -7,3 +7,11 @@ load(
 
 openapi_generator = _openapi_generator
 
+
+load(
+    "//internal:copier.bzl",
+    _copier = "copier",
+)
+
+copier = _copier
+

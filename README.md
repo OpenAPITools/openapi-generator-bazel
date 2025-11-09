@@ -37,3 +37,25 @@ openapi_generator(
     spec = "petstore.yaml",
 )
 ```
+3. [Optional] Copy the output files to your codebase
+
+```
+openapi_generator(
+    name = "petstore_proto",
+    generator = "protobuf-schema",
+    spec = "petstore.yaml",
+)
+
+load("@openapi_tools_generator_bazel//:defs.bzl", "copy_files")
+
+# Run this as 
+# bazel build :copy_files_out 2>&1 | grep -o 'bazel-bin/[^ ]*' | xargs -r bash
+# bazel run :copy_files_out is blocked from writing to one's codebase
+copy_files(
+    name = "copy_files_out",
+    srcs = ":petstore_proto",
+    regex_map = {
+        ".*\\.proto": "protos/petstore"
+    }
+)
+```
