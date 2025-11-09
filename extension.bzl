@@ -13,10 +13,10 @@ def _openapi_generator_impl(module_ctx):
 
 _cli = tag_class(attrs = {
     "version": attr.string(
-        default = "7.2.0",
+        default = "7.17.0",
     ),
     "sha256": attr.string(
-        default = "1cf0c80de12c0fdc8594289c19e414b402108ef10b8dd0bfda1953151341ab5d",
+        default = "25d6bd8273dd2be99979d544b62ea43f0ce1975f1aa582678b5093d1e7fcfce8",
     ),
     "server_urls": attr.string_list(
         default = ["https://repo1.maven.org/maven2"],
