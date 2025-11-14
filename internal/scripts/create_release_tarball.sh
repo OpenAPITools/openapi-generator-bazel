@@ -25,6 +25,10 @@ mkdir -p "$temp_dir/internal/test/bcr"
 cp BUILD.bazel "$temp_dir/"
 cp LICENSE "$temp_dir/"
 cp MODULE.bazel "$temp_dir/"
+
+# Update version in MODULE.bazel
+sed -i.bak "s/version = \"[^\"]*\"/version = \"$version\"/" "$temp_dir/MODULE.bazel"
+rm -f "$temp_dir/MODULE.bazel.bak"
 cp MODULE.bazel.lock "$temp_dir/"
 cp defs.bzl "$temp_dir/"
 cp extension.bzl "$temp_dir/"
