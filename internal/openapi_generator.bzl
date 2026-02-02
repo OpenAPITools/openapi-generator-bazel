@@ -1,4 +1,6 @@
 # Copyright 2019 OpenAPI-Generator-Bazel Contributors
+load("@rules_java//java:defs.bzl", "JavaInfo")
+load("@rules_java//java/common/rules:java_runtime.bzl", "JavaRuntimeInfo")
 
 def _comma_separated_pairs(pairs):
     return ",".join([
@@ -7,7 +9,7 @@ def _comma_separated_pairs(pairs):
     ])
 
 def _new_generator_command(ctx, declared_dir, rjars):
-    java_path = ctx.attr._jdk[java_common.JavaRuntimeInfo].java_executable_exec_path
+    java_path = ctx.attr._jdk[JavaRuntimeInfo].java_executable_exec_path
     gen_cmd = str(java_path)
 
     jar_delimiter = ":"
@@ -181,7 +183,7 @@ _openapi_generator = rule(
         "is_windows": attr.bool(mandatory = True),
         "_jdk": attr.label(
             default = Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
-            providers = [java_common.JavaRuntimeInfo],
+            providers = [JavaRuntimeInfo],
         ),
         "openapi_generator_cli": attr.label(
             cfg = "exec",
